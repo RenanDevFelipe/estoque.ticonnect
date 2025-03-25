@@ -1,8 +1,9 @@
 <?php 
 
 require_once __DIR__ . '/../../config/ApiIXC.php';
-require_once __DIR__ . '/../Helpers/DataApiIXC.php';
-require_once __DIR__ . '/../Helpers/methodListApiIXC.php';
+require_once __DIR__ . '/../Helpers/IXCSoft/dataIXC/DataApiIXC.php';
+require_once __DIR__ . '/../Helpers/IXCSoft/MethodList/methodListApiIXC.php';
+require_once __DIR__ . "/../Helpers/IXCSoft/MethodList/qtypeIXC.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
@@ -13,6 +14,7 @@ class ApiIXC {
     private $password;
     private $body;
     private $methodIXC;
+    private $queryIXC;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class ApiIXC {
         $this->password = constant("PASSWORD");
         $this->body = new DataApiIXC();
         $this->methodIXC = new ListMethod();
+        $this->queryIXC = new QtypeRiquisicoesIXC();
     }
 
     public function listarOSClienteAll(){
@@ -45,6 +48,18 @@ class ApiIXC {
             $methodH
         );
 
+    }
+
+    public function listarAlmoxTecnico($query){
+        $body = $this->body->dataBodyAlmoxTec($query);
+        $methodH = $this->methodIXC->listarIXC();
+
+        return $this->request(
+            $this->queryIXC->estoque_produtos_almox_filial(),
+            "POST",
+            $body,
+            $methodH
+        );
     }
 
 

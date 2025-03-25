@@ -1,6 +1,6 @@
 <?php 
 
-require_once __DIR__ . "/../Helpers/BodyIXC.php";
+require_once __DIR__ . "/../BodyRequest/BodyIXC.php";
 
 
 
@@ -19,6 +19,10 @@ class DataApiIXC {
 
     public function dataBodyListarOsClienteTecnico($qtype, $query, $oper, $sortname, $sortorder){
         return $this->bodyRequest->BodyRequestModelDinamic($qtype, $query, $oper, $sortname, $sortorder);
+    }
+
+    public function dataBodyAlmoxTec($query){
+        return $this->bodyRequest->BodyAlmoxTecnico($query);
     }
 }
 
